@@ -44,7 +44,7 @@ namespace backend
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "backend v1"));
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();    // _note_: disable https when use as a dapr internal service
 
             app.UseRouting();
 
