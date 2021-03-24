@@ -7,7 +7,7 @@
 name: dotnet-csharp-microservice
 extensions:
 - name: dapr
-registry: dapracr.azurecr.io
+#registry: dapracr.azurecr.io
 services:
 - name: frontend
   project: frontend/frontend.csproj
