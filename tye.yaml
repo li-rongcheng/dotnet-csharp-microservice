@@ -11,5 +11,13 @@ extensions:
 services:
 - name: frontend
   project: frontend/frontend.csproj
+  bindings:
+  - port: 8433
+    protocol: http
+    name: http
 - name: backend
   project: backend/backend.csproj
+  bindings:
+  - port: 8453
+    protocol: http
+    name: http
