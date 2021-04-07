@@ -5,19 +5,51 @@
 #    https://aka.ms/AA7q20u
 #
 name: dotnet-csharp-microservice
-extensions:
-- name: dapr
-#registry: dapracr.azurecr.io
+# extensions:
+# - name: dapr
+# registry: dapracr.azurecr.io
 services:
 - name: frontend
   project: frontend/frontend.csproj
   bindings:
-  - port: 8433
+  - port: 9433
+    protocol: http
+    name: http
+- name: frontend-blazor-server
+  project: frontend-blazor-server/frontend-blazor-server.csproj
+  bindings:
+  - port: 9434
     protocol: http
     name: http
 - name: backend
   project: backend/backend.csproj
   bindings:
-  - port: 8453
+  - port: 9453
     protocol: http
     name: http
+- name: backend2
+  project: backend2/backend2.csproj
+  bindings:
+  - port: 9454
+    protocol: http
+    name: http
+ingress:
+  - name: ingress2
+    bindings:
+      - port: 8180
+        protocol: https
+    rules:
+      - service: frontend
+  - name: ingress
+    bindings:
+      - port: 8181
+        protocol: https
+    rules:
+      - service: frontend-blazor-server
+      - path: /api/backend
+        service: backend
+      - path: /api/backend2
+        service: backend2
+      - path: /swagger
+        preservePath: true
+        service: backend
