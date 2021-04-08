@@ -5,13 +5,34 @@
 - Both backend and backend2 disable https
 - Project frontend: a razor page project
 
-## Build & Run
+## Run Using Tye
+
+Do:
 
 ```shell
-$ tye run --watch
+tye run --watch
 ```
 
 Then open tye dashboard from http://127.0.0.1:8000
+
+## Run Using Dapr
+
+Do:
+
+```shell
+dapr run --app-id entry --dapr-http-port 3500
+
+cd backend
+serve-dapr.bat
+
+cd backend2
+serve-dapr.bat
+```
+
+Then open links: 
+
+- http://localhost:3500/v1.0/invoke/backend/method/weatherforecast
+- http://localhost:3500/v1.0/invoke/backend2/method/weatherforecast
 
 ## Call APIs
 
@@ -26,7 +47,7 @@ Then open tye dashboard from http://127.0.0.1:8000
 
   The port number 6117 is the dapr http port, which can be found from the tye dashboard.
 
-- Via builtin nginx ingress:
+- Via tye builtin nginx ingress:
 
   Find the path mapping in `tye.yaml`
 
@@ -40,7 +61,7 @@ Then open tye dashboard from http://127.0.0.1:8000
 
 ## Bug
 
-- Websocket can't work behind the builtin ingress, so blazor server can't work
+- Websocket can't work behind the tye builtin ingress, so blazor server can't work
 
   That means: even if the ingress mapping https://localhost:8181/
   (which maps to service `frontend-blazor-server`) can successfully open the UI
